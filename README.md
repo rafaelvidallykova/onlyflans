@@ -1,4 +1,4 @@
-# OnlyFlans 🍮
+# OnlyFlans 🍮 [![OnlyFlans](https://img.shields.io/badge/flans-approved-yellow)]() [![MIT License](https://img.shields.io/badge/license-MIT-green)]()
 
 
 
