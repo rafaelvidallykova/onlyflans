@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍮 OnlyFlans - The Ultimate Flan Platform</title>
+    <meta name="description" content="Discover and like the world's best flans with persistent JSON database.">
+    <meta name="keywords" content="flan, flans, desserts, recipes, gallery, photos, OnlyFlans, database">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating Flan Emojis -->
+    <div class="floating-flan" style="top: 10%; left: 5%; animation-delay: 0s;">🍮</div>
+    <div class="floating-flan" style="top: 20%; right: 10%; animation-delay: 1s;">🍮</div>
+    <div class="floating-flan" style="bottom: 30%; left: 8%; animation-delay: 2s;">🍮</div>
+    <div class="floating-flan" style="bottom: 10%; right: 15%; animation-delay: 3s;">🍮</div>
+
+    <!-- Database Controls -->
+    <div class="database-controls">
+        <div id="dbStatus" class="db-status">
+            <span class="db-dot animate-pulse"></span>
+            <span>JSON Database</span>
+        </div>
+        <button id="exportBtn" class="db-btn" title="Export Database">📥</button>
+        <button id="importBtn" class="db-btn" title="Import Database">📤</button>
+        <button id="backupBtn" class="db-btn" title="Create Backup">💾</button>
+        <input type="file" id="importFile" accept=".json" style="display: none;">
+    </div>
+
+    <!-- Live Activity Notifications -->
+    <div id="liveNotifications" class="live-notifications"></div>
+
+    <!-- Terms of Service Modal -->
+    <div id="termsModal" class="modal-overlay">
+        <div class="modal-content animate-slideUp">
+            <h2 class="modal-title animate-bounce">🍮 Terms of Service - OnlyFlans</h2>
+            <p class="modal-text">
+                Welcome to OnlyFlans, the ultimate platform for flan lovers! Browse our curated collection of 80 flans and like your favorites. All likes start at 0 and are saved to our JSON database in real-time and synchronized across all users instantly.
+            </p>
+            <div class="modal-buttons">
+                <button id="moreInfoBtn" class="btn btn-secondary">📋 More Information</button>
+                <button id="acceptBtn" class="btn btn-primary">✅ Accept and Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Info Modal -->
+    <div id="moreInfoModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content modal-large animate-slideUp">
+            <h2 class="modal-title animate-pulse">📜 JSON Database Information</h2>
+            <div class="terms-content">
+                <p><strong>1. FRESH START:</strong> All flans begin with 0 likes to ensure fair and organic popularity growth based on real user interactions.</p>
+                
+                <p><strong>2. REAL-TIME SYNCHRONIZATION:</strong> Every like you give is instantly saved to our database.json file and automatically synchronized across all users and browser tabs in real-time.</p>
+                
+                <p><strong>3. CURATED COLLECTION:</strong> Browse our carefully selected collection of 80 unique flans across 4 categories without the need to upload content.</p>
+                
+                <p><strong>4. DATABASE STRUCTURE:</strong></p>
+                <ul>
+                    <li><strong>Classic Flans:</strong> 20 traditional and timeless flan varieties</li>
+                    <li><strong>Gore Flans:</strong> 20 extreme and unconventional flan presentations</li>
+                    <li><strong>AI Flans:</strong> 20 artificially generated and digital flan creations</li>
+                    <li><strong>Brainrot Flans:</strong> 20 experimental and avant-garde flan concepts</li>
+                </ul>
+                
+                <p><strong>5. LIKE SYSTEM:</strong> Each flan starts at 0 likes and grows organically based on community appreciation. Your likes are permanently stored.</p>
+                
+                <p><strong>6. TRENDING ALGORITHM:</strong> Flans become trending based on like thresholds: Classic (10+), Gore (5+), AI (15+), Brainrot (20+).</p>
+                
+                <p><strong>7. DATABASE PERSISTENCE:</strong> All interactions are saved to database.json with timestamps and user tracking for complete data integrity.</p>
+                
+                <p><strong>8. EXPORT/IMPORT:</strong> Download or upload database files to backup or share your flan community data.</p>
+                
+                <p><strong>9. CROSS-TAB SYNC:</strong> Open multiple tabs and watch likes synchronize in real-time across all instances.</p>
+                
+                <p><strong>10. ACTIVITY LOGGING:</strong> Every like, unlike, and interaction is logged with full details in the database activity log.</p>
+                
+                <p class="terms-footer">🍮 Start liking and watch the community grow! 🍮</p>
+            </div>
+            <div class="modal-buttons">
+                <button id="rejectBtn" class="btn btn-danger">❌ Reject</button>
+                <button id="closeInfoBtn" class="btn btn-secondary">🔙 Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal-overlay" style="display: none;">
+        <div class="image-modal-content animate-slideUp">
+            <span class="close-btn" id="closeImageModalBtn">&times;</span>
+            <img id="enlargedImage" src="/placeholder.svg" alt="Flan Ampliado" class="image-modal-img">
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="main-title animate-bounce">🍮 OnlyFlans 🍮</h1>
+                <p class="subtitle animate-pulse">Curated Flan Collection - All Likes Start at 0!</p>
+                <div class="live-indicator">
+                    <span class="live-dot animate-pulse"></span>
+                    <span>LIVE JSON DATABASE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navigation">
+            <div class="container">
+                <div class="nav-buttons">
+                    <button class="nav-btn active" data-section="classic">🍮 Classic Flans (20)</button>
+                    <button class="nav-btn" data-section="gore">💀 Gore Flans (20)</button>
+                    <button class="nav-btn" data-section="ai">🤖 AI Flans (20)</button>
+                    <button class="nav-btn" data-section="brainrot">🧠 Brainrot Flans (20)</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Database Stats -->
+        <section class="database-info">
+            <div class="container">
+                <div class="db-info-card">
+                    <h3>📊 Database Status</h3>
+                    <div class="db-stats">
+                        <div class="db-stat">
+                            <span class="db-stat-label">Database File:</span>
+                            <span class="db-stat-value">database.json</span>
+                        </div>
+                        <div class="db-stat">
+                            <span class="db-stat-label">Last Update:</span>
+                            <span class="db-stat-value" id="lastUpdate">Loading...</span>
+                        </div>
+                        <div class="db-stat">
+                            <span class="db-stat-label">Database Size:</span>
+                            <span class="db-stat-value" id="dbSize">Calculating...</span>
+                        </div>
+                        <div class="db-stat">
+                            <span class="db-stat-label">Backup Count:</span>
+                            <span class="db-stat-value" id="backupCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 id="galleryTitle" class="gallery-title animate-pulse">🖼️ Classic Flans Gallery</h2>
+                <div class="stats-bar">
+                    <div class="stat-item animate-bounce">
+                        <span class="stat-number" id="totalFlans">80</span>
+                        <span class="stat-label">Total Flans</span>
+                    </div>
+                    <div class="stat-item animate-pulse">
+                        <span class="stat-number" id="totalLikes">0</span>
+                        <span class="stat-label">Database Likes</span>
+                    </div>
+                    <div class="stat-item animate-bounce">
+                        <span class="stat-number" id="yourLikes">0</span>
+                        <span class="stat-label">Your Likes</span>
+                    </div>
+                    <div class="stat-item animate-pulse">
+                        <span class="stat-number" id="dbOperations">0</span>
+                        <span class="stat-label">DB Operations</span>
+                    </div>
+                </div>
+                
+                <!-- Community Growth Message -->
+                <div class="community-message">
+                    <div class="message-card">
+                        <h3>🌱 Growing Together</h3>
+                        <p>Every flan starts with 0 likes! Be the first to like your favorites and watch our community grow organically. Your likes are saved forever in our JSON database!</p>
+                        <div class="growth-stats">
+                            <div class="growth-stat">
+                                <span class="growth-number" id="communityLikes">0</span>
+                                <span class="growth-label">Community Likes</span>
+                            </div>
+                            <div class="growth-stat">
+                                <span class="growth-number" id="trendingFlans">0</span>
+                                <span class="growth-label">Trending Flans</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gallery" class="gallery-grid">
+                    <!-- Gallery items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <h3 class="footer-title animate-bounce">🍮 OnlyFlans 🍮</h3>
+                <p class="footer-subtitle animate-pulse">Where every flan starts at 0 and grows with love</p>
+                <div class="footer-info">
+                    <span class="animate-bounce">© 2024 OnlyFlans</span>
+                    <span class="animate-pulse">Made with 💛 and fresh database.json</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="database-manager.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
