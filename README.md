@@ -1,24 +1,20 @@
-\# OnlyFlans 🍮
+# OnlyFlans 🍮
 
 
 
-Welcome to \*\*OnlyFlans\*\* — a completely serious flan appreciation platform.
+Welcome to **OnlyFlans** — a completely serious flan appreciation platform.
 
 
 
-\## 🍮 What is this?
+## 🍮 What is this?
 
 
 
 A parody website showcasing different categories of flans:
-
-\- Classic Flans
-
-\- Gore Flans
-
-\- AI Flans
-
-\- Brainrot Flans
+- Classic Flans
+- Gore Flans
+- AI Flans
+- Brainrot Flans
 
 
 
@@ -26,27 +22,27 @@ Each flan starts with 0 likes and infinite love.
 
 
 
-\## 🔧 Tech Stack
+## 🔧 Tech Stack
 
 
 
-\- HTML/CSS/JavaScript
+- HTML/CSS/JavaScript
 
-\- JSON-based flan database (`database.json`)
+- JSON-based flan database (`database.json`)
 
-\- Static hosting (GitHub Pages)
-
-
-
-\## 🌐 Live Site
+- Static hosting (GitHub Pages)
 
 
 
-👉 \[https://onlyflans.pro](https://onlyflans.pro)
+## 🌐 Live Site
 
 
 
-\## 📄 License
+👉 [https://onlyflans.pro](https://onlyflans.pro)
+
+
+
+## 📄 License
 
 
 
